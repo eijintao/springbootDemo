@@ -2,6 +2,7 @@ package com.projectdemo.springbootdemo;
 
 
 
+import beans.SimpleBean;
 import com.projectdemo.springbootdemo.controller.DemoController;
 import com.projectdemo.springbootdemo.entity.MyProperties;
 import com.projectdemo.springbootdemo.entity.Person;
@@ -28,6 +29,9 @@ public class SpringbootdemoApplicationTests {
 
     @Autowired
     private MyProperties myProperties;
+
+    @Autowired
+    private SimpleBean simpleBean;
 
     /**
      * todo:
@@ -62,5 +66,12 @@ public class SpringbootdemoApplicationTests {
     public void test4() {
         // String demo = demoController.demo();
         System.out.println(myProperties);
+    }
+
+    // 自动创建的单元测试方法实例 测试自定义start ，这个写入自定义starter也没有乱码了
+    @Test
+    public void test5() {
+        // String demo = demoController.demo();
+        System.out.println(simpleBean);
     }
 }
