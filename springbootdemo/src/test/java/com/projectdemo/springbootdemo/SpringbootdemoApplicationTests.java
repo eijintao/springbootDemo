@@ -4,9 +4,11 @@ package com.projectdemo.springbootdemo;
 
 import beans.SimpleBean;
 import com.projectdemo.springbootdemo.controller.DemoController;
+import com.projectdemo.springbootdemo.entity.Comment;
 import com.projectdemo.springbootdemo.entity.MyProperties;
 import com.projectdemo.springbootdemo.entity.Person;
 import com.projectdemo.springbootdemo.entity.Student;
+import com.projectdemo.springbootdemo.mapper.CommentMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,9 @@ public class SpringbootdemoApplicationTests {
 
     @Autowired
     private SimpleBean simpleBean;
+
+    @Autowired
+    private CommentMapper commentMapper;
 
     /**
      * todo:
@@ -74,4 +79,11 @@ public class SpringbootdemoApplicationTests {
         // String demo = demoController.demo();
         System.out.println(simpleBean);
     }
+
+    @Test
+    public void test6() {
+        Comment comment = commentMapper.findById(1);
+        System.out.println(comment);
+    }
+
 }
