@@ -3,11 +3,13 @@ package com.projectdemo.springbootdemo;
 
 
 import beans.SimpleBean;
+import com.projectdemo.springbootdemo.Repository.CommentRepository;
 import com.projectdemo.springbootdemo.controller.DemoController;
 import com.projectdemo.springbootdemo.entity.Article;
 import com.projectdemo.springbootdemo.entity.Comment;
 import com.projectdemo.springbootdemo.entity.MyProperties;
 import com.projectdemo.springbootdemo.entity.Person;
+import com.projectdemo.springbootdemo.entity.RepositoryComment;
 import com.projectdemo.springbootdemo.entity.Student;
 import com.projectdemo.springbootdemo.mapper.ArticleMapper;
 import com.projectdemo.springbootdemo.mapper.CommentMapper;
@@ -17,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Optional;
 
 @RunWith(SpringRunner.class) // 测试启动器，并加载Spring Boot测试注解
 @SpringBootTest // 标记为Spring Boot单元测试类，并加载项目的ApplicationContext上下文环境
@@ -37,11 +40,15 @@ public class SpringbootdemoApplicationTests {
     @Autowired
     private SimpleBean simpleBean;
 
-    @Autowired
+    @Autowired(required = false)
     private CommentMapper commentMapper;
 
-    @Autowired
+    @Autowired(required = false)
     private ArticleMapper articleMapper;
+
+    @Autowired
+    private CommentRepository repository;
+
 
     /**
      * todo:
@@ -85,16 +92,28 @@ public class SpringbootdemoApplicationTests {
         System.out.println(simpleBean);
     }
 
+    // 自动创建的单元测试方法实例 测试 注解mybatis  比如 @select
     @Test
     public void test6() {
         Comment comment = commentMapper.findById(1);
         System.out.println(comment);
     }
 
+    // 自动创建的单元测试方法实例 测试 mybatis的xml形式  比如 ArticleMapper.xml
     @Test
     public void test7() {
         Article article = articleMapper.selectArticle(1);
         System.out.println(article);
+    }
+
+    // 自动创建的单元测试方法实例 测试 jpa  比如 CommentRepository extends JpaRepository<RepositoryComment,Integer>
+    @Test
+    public void test8() {
+        Optional<RepositoryComment> optional = repository.findById(1);
+        if(optional.isPresent()){
+            System.out.println(optional.get());
+        }
+        System.out.println();
     }
 
 }
