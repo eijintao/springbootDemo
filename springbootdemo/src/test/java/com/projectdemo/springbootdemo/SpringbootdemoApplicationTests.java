@@ -1,12 +1,17 @@
 package com.projectdemo.springbootdemo;
 
 
+
 import com.projectdemo.springbootdemo.controller.DemoController;
+import com.projectdemo.springbootdemo.entity.MyProperties;
+import com.projectdemo.springbootdemo.entity.Person;
+import com.projectdemo.springbootdemo.entity.Student;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
 
 @RunWith(SpringRunner.class) // 测试启动器，并加载Spring Boot测试注解
 @SpringBootTest // 标记为Spring Boot单元测试类，并加载项目的ApplicationContext上下文环境
@@ -14,6 +19,15 @@ public class SpringbootdemoApplicationTests {
 
     @Autowired
     private DemoController demoController;
+
+    @Autowired
+    private Person person;
+
+    @Autowired
+    private Student student;
+
+    @Autowired
+    private MyProperties myProperties;
 
     /**
      * todo:
@@ -29,5 +43,24 @@ public class SpringbootdemoApplicationTests {
         System.out.println(demo);
     }
 
+    // 自动创建的单元测试方法实例 测试person 也就是@ConfigurationProperties
+    @Test
+    public void test2() {
+       // String demo = demoController.demo();
+        System.out.println(person);
+    }
 
+    // 自动创建的单元测试方法实例 测试student，也就是@Value
+    @Test
+    public void test3() {
+        // String demo = demoController.demo();
+        System.out.println(student);
+    }
+
+    // 自动创建的单元测试方法实例 测试myproperties，也就是自定义配置文件,居然没有乱码。这个是怎么回事？
+    @Test
+    public void test4() {
+        // String demo = demoController.demo();
+        System.out.println(myProperties);
+    }
 }
