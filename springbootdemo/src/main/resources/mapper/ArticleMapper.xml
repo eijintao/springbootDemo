@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 注意命名空间的路径和 resultType的结果路径 -->
+<mapper  namespace="com.projectdemo.springbootdemo.mapper.ArticleMapper">
+    <select id="selectArticle" parameterType="java.lang.Integer" resultType="com.projectdemo.springbootdemo.entity.Article">
+        select * from t_article as t where t.id = #{id}
+    </select>
+</mapper>
