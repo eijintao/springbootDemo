@@ -71,6 +71,7 @@
             <artifactId>fastjson</artifactId>
             <version>2.0.2</version>
         </dependency>
+<!--   自定义的包需要正确引入进来，这次是设置了repository中的路径， override了。      -->
         <dependency>
             <groupId>org.example</groupId>
             <artifactId>zdy-spring-boot-starter</artifactId>
@@ -117,5 +118,38 @@
             </plugin>
         </plugins>
     </build>
+    <!--                解决电脑公司两用的时候setting文件会互相污染的问题。那么就每个项目里面都配置
+                阿里云镜像，这样就不需要再去找idea中maven的配置了。
 
+                repositories是负责jar的下载，pluginRepositories是负责plugin插件的下载，
+                如果不设置后者，则遇到的plugin都将去 maven 中心仓库下载啦
+                问题一：
+                但是这样做有一个后果，就是 他们会把jar包都下载到c盘的repository文件夹里面
+                解决： idea的maven设置中设置文件路径的重写
+                    -->
+    <!-- 配置阿里云仓库 -->
+    <repositories>
+        <repository>
+            <id>aliyun-repos</id>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>aliyun-repos</id>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 </project>
