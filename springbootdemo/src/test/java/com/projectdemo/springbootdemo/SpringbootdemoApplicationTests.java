@@ -2,7 +2,7 @@ package com.projectdemo.springbootdemo;
 
 
 
-import beans.SimpleBean;
+//import beans.SimpleBean;
 import com.projectdemo.springbootdemo.Repository.CommentRepository;
 import com.projectdemo.springbootdemo.controller.DemoController;
 import com.projectdemo.springbootdemo.entity.Article;
@@ -17,9 +17,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.util.StreamUtils;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RunWith(SpringRunner.class) // 测试启动器，并加载Spring Boot测试注解
 @SpringBootTest // 标记为Spring Boot单元测试类，并加载项目的ApplicationContext上下文环境
@@ -36,9 +41,9 @@ public class SpringbootdemoApplicationTests {
 
     @Autowired
     private MyProperties myProperties;
-
-    @Autowired
-    private SimpleBean simpleBean;
+// 这个是 自己自定义的jar包在这里的测试的。
+//    @Autowired
+//    private SimpleBean simpleBean;
 
     @Autowired(required = false)
     private CommentMapper commentMapper;
@@ -89,7 +94,7 @@ public class SpringbootdemoApplicationTests {
     @Test
     public void test5() {
         // String demo = demoController.demo();
-        System.out.println(simpleBean);
+//        System.out.println(simpleBean);
     }
 
     // 自动创建的单元测试方法实例 测试 注解mybatis  比如 @select
@@ -114,6 +119,14 @@ public class SpringbootdemoApplicationTests {
             System.out.println(optional.get());
         }
         System.out.println();
+    }
+
+    @Test
+    public void testSteamUtils() {
+        Person person = new Person();
+        List<Person> collect = StreamUtils.fromNullable(person).collect(Collectors.toList());
+        System.out.println(collect);
+
     }
 
 }
