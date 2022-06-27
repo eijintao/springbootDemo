@@ -13,6 +13,7 @@ import com.projectdemo.springbootdemo.entity.RepositoryComment;
 import com.projectdemo.springbootdemo.entity.Student;
 import com.projectdemo.springbootdemo.mapper.ArticleMapper;
 import com.projectdemo.springbootdemo.mapper.CommentMapper;
+import com.projectdemo.springbootdemo.utils.AESKit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +78,8 @@ public class SpringbootdemoApplicationTests {
     }
 
     // 自动创建的单元测试方法实例 测试student，也就是@Value
+    //  @Value("${person.name: 徐盛}") ，如果 application.yaml等配置文件中没有相应的属性，那么
+    //  Value注解，就会直接拿 徐盛  这两个字来进行输入和输出
     @Test
     public void test3() {
         // String demo = demoController.demo();
@@ -127,6 +130,13 @@ public class SpringbootdemoApplicationTests {
         List<Person> collect = StreamUtils.fromNullable(person).collect(Collectors.toList());
         System.out.println(collect);
 
+    }
+
+    // 使用 AES加密
+    @Test
+    public void testAESKit () {
+        String root123 = AESKit.encrypt("root123");
+        System.out.println(root123);
     }
 
 }

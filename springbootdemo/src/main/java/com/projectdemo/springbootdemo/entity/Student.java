@@ -24,7 +24,7 @@ public class Student {
     /**
      * 测试学生名字
      */
-    @Value("${person.name}")
+    @Value("${person.name: 徐盛}")
     private String name;
 
 }

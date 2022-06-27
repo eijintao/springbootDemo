@@ -5,7 +5,7 @@ server:
 #对实体类对象Person进行属性配置
 person:
   id: 1
-  name: lucy
+  # name: lucy
   hobby: [吃饭，睡觉，打豆豆]
   family: [father,mother]
   map: {k1: v1,k2: v2}
