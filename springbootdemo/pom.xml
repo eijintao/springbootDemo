@@ -95,15 +95,53 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <!-- 引入poi依赖 -->
-        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+<!--         https://mvnrepository.com/artifact/org.apache.poi/poi-->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
-            <version>4.1.2</version>
+            <version>5.2.3</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>5.2.3</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.9</version>
+        </dependency>
 
+<!--log4j的日志-->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>2.18.0</version>
+            <!--			<scope>compile</scope>-->
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.18.0</version>
+            <!--			<scope>compile</scope>-->
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.18.0</version>
+            <!--			<scope>compile</scope>-->
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-jul</artifactId>
+            <version>2.18.0</version>
+            <!--			<scope>compile</scope>-->
+        </dependency>
     </dependencies>
+
 
     <build>
         <plugins>
@@ -124,8 +162,27 @@
                     <!--<addResources>true</addResources>-->
                 </configuration>
             </plugin>
+
+<!--            以下是如果非要使用main函数执行，那就在maven引入办法二提到的两个插件即可(compiler可以不用引入)，-->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <classpathScope>test</classpathScope>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
+
     <!--                解决电脑公司两用的时候setting文件会互相污染的问题。那么就每个项目里面都配置
                 阿里云镜像，这样就不需要再去找idea中maven的配置了。
 
