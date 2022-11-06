@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <!--
+        以下配置文件相当于：
+            @WebServlet(name = "DispatcherServlet",urlPatterns = "*.do",loadOnStartup = 1)
+
+        相当于注解。
+        可以注解和配置文件一起，不会报错。不过，配置文件的优先级更高一些。
+    -->
+    <servlet>
+        <servlet-name>DispatcherServlet</servlet-name>
+        <servlet-class>core.web.DispatcherServlet</servlet-class>
+        <!--
+            配置初始化参数
+        -->
+        <init-param>
+            <param-name>configLocation</param-name>
+            <param-value>dnsmmvc.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DispatcherServlet</servlet-name>
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+    
+    
+    
+</web-app>
