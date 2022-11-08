@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<beans>
-    <!--
-     配置处理器，其中，class属性用于配置处理器类名
-    -->
-    <bean class="demo.HelloController"/>
-    <bean class="demo.LoginController"/>
-</beans>
