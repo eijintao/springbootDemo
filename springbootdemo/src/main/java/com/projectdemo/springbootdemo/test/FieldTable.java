@@ -29,9 +29,8 @@ import java.util.Map;
  */
 public class FieldTable {
 
-    
+    private static final Logger logger = LogManager.getLogger(FieldTable.class);
 
-    private static Logger logger = LogManager.getLogger(FieldTable.class);
 
     public static void main(String[] args) {
         List<String> fileNameList = new ArrayList<>();
