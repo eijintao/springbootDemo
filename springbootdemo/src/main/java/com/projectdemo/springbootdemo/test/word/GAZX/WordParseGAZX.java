@@ -56,7 +56,7 @@ public class WordParseGAZX {
         // 解析单个文档
         File f2 = new File("E:\\至恒融兴项目熟悉流程\\2023\\20230323以后的excel集中地\\港澳资讯\\港澳资讯英大证券.doc");
         System.out.println(f2.getName());
-        //getContentDocx(f2);
+        // 获取目录层级的表名
         Map<String, String> mapTab = wordTableParse(f2);
         //    获取所有的表格中的表和字段
         List<Map<String, Object>> wordTable = getWordTable(f2);
