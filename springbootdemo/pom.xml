@@ -69,7 +69,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>2.0.2</version>
+            <version>1.2.28</version>
         </dependency>
 <!--   自定义的包需要正确引入进来，这次是设置了repository中的路径， override了。      -->
         <dependency>
@@ -83,6 +83,31 @@
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>2.2.2</version>
         </dependency>
+
+<!--        引入 pdf 依赖-->
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>2.0.24</version>
+<!--            <scope>test</scope>-->
+        </dependency>
+
+        <!--        引入 腾讯云短信 依赖-->
+        <dependency>
+            <groupId>com.tencentcloudapi</groupId>
+            <artifactId>tencentcloud-sdk-java</artifactId>
+            <version>3.1.720</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/com.aliyun/alibabacloud-dysmsapi20170525 -->
+        <!--        引入 阿里云短信 依赖-->
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>alibabacloud-dysmsapi20170525</artifactId>
+            <version>2.0.23</version>
+        </dependency>
+
 
         <dependency>
             <groupId>mysql</groupId>

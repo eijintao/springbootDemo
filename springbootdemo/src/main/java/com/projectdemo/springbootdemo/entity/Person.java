@@ -32,7 +32,7 @@ public class Person {
     /**
      *
      */
-    private List hobby;
+    private List<String> hobby;
 
     /**
      * 测试的家庭成员。数组的形式

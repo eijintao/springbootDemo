@@ -20,6 +20,8 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,21 +41,30 @@ public class TextSql{
     public static void main(String[] args) {
 
         List<String> fileNameList = new ArrayList<>();
-        File f1 = new File("C:\\Users\\mjt\\Desktop\\测试所用\\excel\\exchangedate.xlsx");
+        File f1 = new File("D:/testHT/exchangetest/");
         String locations = "D:\\testHT\\";
+        // 多个文件。并且path是必须要到文件夹的。到文件名是会报空指针
         File[] f = f1.listFiles();
+        String name = "";
+        // 单个文件
+        //String name = f1.getName();
+        //System.out.println(name);
         for (int i = 0; i < f.length; i++) {
             fileNameList.add(f[i].toString());
+            name = f[i].getName();
+            name = name.substring(0, name.indexOf("."));
+
         }
         logger.info("所有文件名是：" + JSONObject.toJSONString(fileNameList) );
         logger.info("所有文件个数是：" + fileNameList.size() );
 
-        Map<String, List<List<String>>> stringListMap = readExcel(fileNameList);
+        Map<String, List<List<String>>> stringListMap = readExcel(fileNameList,name);
+        System.out.println(stringListMap.toString());
         writetoTxt(locations,stringListMap);
 
     }
 
-    public static Map<String, List<List<String>>> readExcel(List<String> fileNameList )  {
+    public static Map<String, List<List<String>>> readExcel(List<String> fileNameList , String name)  {
         //获取输入流
         InputStream stream = null;
         String fileName = null ;
@@ -65,10 +76,12 @@ public class TextSql{
                 List<List<String>> currentRowList = new ArrayList<>();
                 // 获取文件名
                 String strFile = fileNameList.get(k);
-                fileName = strFile.substring(strFile.lastIndexOf(File.separator)+1);
-                int i1 = fileName.indexOf("(");
-                int i2 = fileName.lastIndexOf(")");
-                fileName = fileName.substring(i1+1,i2);
+                //fileName = strFile.substring(strFile.lastIndexOf(File.separator)+1);
+                //int i1 = fileName.indexOf("(");
+                //int i2 = fileName.lastIndexOf(")");
+                //fileName = fileName.substring(i1+1,i2);
+
+
                 //获取文件类型
                 fileType = strFile.substring(strFile.lastIndexOf(".") + 1);
 
@@ -90,9 +103,14 @@ public class TextSql{
                 String sheetName = sheetAt.getSheetName();
                 // 判断sheet中有多少行数据
                 int lastRowNum = sheetAt.getLastRowNum()+1;
-                logger.info(fileName + "文件中有" + lastRowNum +"行");
+                if (fileName == null) {
+                    logger.info(strFile + "文件中有" + lastRowNum +"行");
+                } else {
+                    logger.info(fileName + "文件中有" + lastRowNum +"行");
+                }
 
                 List<String> rowList = null;
+                List<Double> doubleList = null;
 
                 // 第二层循环，循环 行
                 //  遍历每一行数据，获取HSSFRow对象
@@ -103,11 +121,12 @@ public class TextSql{
                         if (row.getLastCellNum() < 1) {
                             continue;
                         }
-                        // 获取每一行的列数
+                        // 获取每一行的列数,如果最后一列是空的，那么获取到的列数就是错误的。也就是少一个
                         short lastCellNum = row.getLastCellNum();
                         //StringBuilder sb = new StringBuilder();
                         //获取每一行封装成对象
                         rowList = new ArrayList<String>();
+                        doubleList = new ArrayList<Double>();
 
                         // 第三层循环，循环 当前行的列
                         // 遍历每一行中的每一列，获取到每个单元格中的值
@@ -130,13 +149,26 @@ public class TextSql{
                                     rowList.add(stringCellValue);
                                     break;
                                 case NUMERIC:// 数字
+                                    double numericCellValue = cell.getNumericCellValue();
+                                    if (numericCellValue == 0) {
+                                        numericCellValue = 0;
+                                    }
+                                    NumberFormat numberFormat = new DecimalFormat("#"); // 根据需要设置格式，此处保留8位小数
+                                    String formattedValue = numberFormat.format(numericCellValue);
+                                    System.out.println(formattedValue);
+                                    rowList.add(formattedValue);
+                                    //doubleList.add(numericCellValue);
                                     break;
                             }
                         }
                     }
                     currentRowList.add(rowList);
                 }
-                map.put(fileName,currentRowList);
+                if (name != null) {
+                    map.put(name+"one",currentRowList);
+                } else {
+                    map.put("test",currentRowList);
+                }
             }
 
         } catch (FileNotFoundException e) {
@@ -160,6 +192,12 @@ public class TextSql{
          * update tn_meta_dmod_col_info set COL_CN_NAME = 'xxx'
          *  ,CUSTOM = 'xxx' where DMOD_EN_NAME = 'HIVE_METASTORE.adp_dm.IDS_T_FP_TZSY' and COL_EN_NAME = 'KCRQ'
          *
+         *
+         *
+INSERT INTO `alioth_ydzq_testing_environment`.`exchangedate`
+* (`EXCHANGE_TYPE`, `OC_DATE`, `TREAT_FLAG`) VALUES (NULL, '20221230', NULL);
+
+         *
          * */
 
         //String strSql = null;
@@ -182,8 +220,10 @@ public class TextSql{
                             continue;
                         }
                         if (s0 !=null && s1 != null) {
-                            str.append(" update tn_meta_dmod_col_info set COL_CN_NAME =  '" + s0  + "' ,CUSTOM =  '" + s0 +"' "  );
-                            str.append("  where DMOD_EN_NAME = 'HIVE_METASTORE.adp_dm." + fileNam + "'  and COL_EN_NAME =  '" + s1  + "'; "  );
+                            //str.append(" update tn_meta_dmod_col_info set COL_CN_NAME =  '" + s0  + "' ,CUSTOM =  '" + s0 +"' "  );
+                            //str.append("  where DMOD_EN_NAME = 'HIVE_METASTORE.adp_dm." + fileNam + "'  and COL_EN_NAME =  '" + s1  + "'; "  );
+                            str.append("INSERT INTO `alioth_ydzq_testing_environment`.`exchangedate` " +
+                                    "  (`EXCHANGE_TYPE`, `OC_DATE`, `TREAT_FLAG`) VALUES (NULL, '"+ s1  +"', NULL);");
                             str.append("\t\n");
                         }
 

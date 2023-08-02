@@ -5,9 +5,24 @@ server:
 #对实体类对象Person进行属性配置
 person:
   id: 1
-  # name: lucy
-  hobby: [吃饭，睡觉，打豆豆]
-  family: [father,mother]
+  name: lucy,json,rose
+  hobby: "吃饭，睡觉，打豆豆"
+  family: father,mother
   map: {k1: v1,k2: v2}
   pet: {type: dog,name: 旺财}
 
+# 短信发送
+sms:
+  secretid: AKIDxmQnumTwBC3f4HFzUjjU0IOFnF1bye5F
+  secretkey: 1nMgmdFCtNehV5kIe0JchW6V0JOGtGXb
+  action: SendSms
+  region: ap-guangzhou
+  tencentcloud: sms.tencentcloudapi.com
+#  接收者手机号码
+  phoneNumbers: 18040583457,13477730216
+  #   是腾讯云那边定死的 短信 SdkAppId
+  smssdkappid: 1400804455
+  #   是腾讯云那边定死的 模板 ID   单条：1738781
+  templateid: 2047354
+  #    短信签名内容
+  signname: 荤肉素菜的世界公众号
