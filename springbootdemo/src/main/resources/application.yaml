@@ -13,8 +13,8 @@ person:
 
 # 短信发送
 sms:
-  secretid: AKIDxmQnumTwBC3f4HFzUjjU0IOFnF1bye5F
-  secretkey: 1nMgmdFCtNehV5kIe0JchW6V0JOGtGXb
+  secretid:
+  secretkey:
   action: SendSms
   region: ap-guangzhou
   tencentcloud: sms.tencentcloudapi.com
